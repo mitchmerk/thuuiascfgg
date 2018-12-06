@@ -109,7 +109,7 @@ class ViewController: UIViewController {
      */
     
     func passChecks() -> Bool{
-        
+        /*
         if justClearedLine == true{
             
             inputLine.text = ""
@@ -130,6 +130,7 @@ class ViewController: UIViewController {
             }
             
         }
+         */
         return true
     }
     
@@ -218,7 +219,6 @@ class ViewController: UIViewController {
         updateValue(num: 0)
         
     }
-    
     
     //Actions corresponding to tapping the aritmetic operations
     //All of these methods call tappedOperation and pass in their corresponding operationMode value
@@ -320,9 +320,7 @@ class ViewController: UIViewController {
      You fill in this method.  It should reset all of the flags and other values to their start-up state
      */
     func clearHistory(){
-        
-        
-        
+        inputLine.text = ""
     }
     
     //-----------------------------------------------------------------------------------------------------------------------
@@ -331,6 +329,44 @@ class ViewController: UIViewController {
     ///Pre Condition: None
     ///Post Condition: All numbers and booleans have been cleared and reset to app start up values
     @IBAction func didTapClearHistory(){
+        
+        //have to reference this everytime
+        guard currentMode != operationMode.ERR else{
+            return
+        }
+        
+        guard numEntries > 0 else{
+            inputLine.text = String(savedNum)
+            return
+        }
+        
+        ///  signals that an operation was tapped before this code is run
+        justTappedOP = false
+        /// signals that = was tapped before this code is run
+        tappedEQL = false
+        /// signals that either we are currently entering a number or just entered a number
+        enteringNumber = false
+        /// signals whether or not the inputLine was just cleared
+        justClearedLine = false
+        
+        justClearedLine = true
+        
+        currentMode = operationMode.NON
+        
+        prevMode = operationMode.NON
+        
+        if tappedEQL == true{
+            
+            tappedEQL = false
+            
+            inputLine.text = String(0)
+            
+            return
+        }else{
+            inputLine.text = String(savedNum)
+            justClearedLine = true
+        }
+        
         clearHistory()
     }
     
@@ -366,6 +402,36 @@ class ViewController: UIViewController {
      */
     func tappedOperation(op: operationMode){
         
+        guard inputLine.text != "" && Int(inputLine.text!)! != OVERFLOW else{
+            return
+        }
+        
+        
+        switch op{
+            
+            
+            /*
+        case .ADD: track
+             
+        case .SUB: track
+             
+        case .MUL: track
+             
+        case .DIV: track
+             
+        case .MOD: track
+             
+        case .EQL: track
+             
+        case .ERR: track
+             
+        case .NON: track
+            */
+            
+            
+        default: return ;
+        }
+        
         
         
         
@@ -392,6 +458,14 @@ class ViewController: UIViewController {
      
      */
     @IBAction func didTapBSpace(){
+        
+        guard inputLine.text != "" else{
+            return
+        }
+        
+        
+        
+        
         
         
     }
@@ -429,12 +503,12 @@ class ViewController: UIViewController {
         
         var inputString: String = ""
         
-        guard inputLine.text != "" else{
+        guard inputLine.text == "" else{
             print("There is nothing to grab.")
             return
         }
         
-        guard inputString != "" else{
+        guard inputString == "" else{
             print("The input String is empty.")
             return
         }
@@ -469,6 +543,12 @@ class ViewController: UIViewController {
      
      */
     @IBAction func tappedEvaluate(){
+        
+        
+        
+        
+        
+        
         
     }
     
@@ -537,6 +617,12 @@ class ViewController: UIViewController {
     func evaluate(pressedEq: Bool, prevMode: operationMode)-> String{
         
         
+        
+        
+        
+        
+        
+        
         return String(savedNum)
     }
     
@@ -555,6 +641,13 @@ class ViewController: UIViewController {
      */
     
     func updateSaved(_ theMode: operationMode){
+        
+        
+        
+        
+        
+        
+        
         
     }
     
@@ -577,6 +670,12 @@ class ViewController: UIViewController {
      */
     func updateHistory(op: operationMode, valueGrabbed: Int){
         
+        
+        
+        
+        
+        
+        
     }
     
     //-----------------------------------------------------------------------------------------------------------------------
@@ -588,9 +687,7 @@ class ViewController: UIViewController {
      - PostCondition: An optional String has been returned.
      */
     func getText() -> String?{
-        
         return inputLine.text
-        
     }
     
     //-----------------------------------------------------------------------------------------------------------------------
@@ -607,10 +704,26 @@ class ViewController: UIViewController {
      */
     func updateValue(num: Int){
         
+        if numEntries > 11{
+            OVERFLOW
+        }
+        
+        else{
+            
+            
+            if inputLine.text == String(0){
+                inputLine.text = ""
+            }
+            
+            
+            
+            inputLine.text!.append(String(num))
+            
+            
+        }
+        
         
     }
-    
-    
     //-----------------------------------------------------------------------------------------------------------------------
     //////////THESE METHODS ARE NOT PART OF THE PROJECT
     
@@ -618,13 +731,10 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         HistoryLabel.lineBreakMode = .byWordWrapping
-        
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    
 }
