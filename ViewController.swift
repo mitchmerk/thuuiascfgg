@@ -11,7 +11,6 @@
  Removing this statement does not negate the rights of the Author (Jacob Levy).
  */
 
-
 /*:
  The Phone Calculator Project.
  ### This project is inspired by the video for a similar ( but simpler ) watchOS calculator  located [here]
@@ -59,7 +58,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var inputLine: UILabel!
     
     
-    //    Flags for managing the calculator.
+    // Flags for managing the calculator.
     
     
     ///  signals that an operation was tapped before this code is run
@@ -325,7 +324,6 @@ class ViewController: UIViewController {
     
     //-----------------------------------------------------------------------------------------------------------------------
     
-    
     ///Pre Condition: None
     ///Post Condition: All numbers and booleans have been cleared and reset to app start up values
     @IBAction func didTapClearHistory(){
@@ -374,7 +372,8 @@ class ViewController: UIViewController {
     
     /**
      - PreCondition:  Either some number has been entered into the input line or we are continuing some sort of chained
-     arithmetic operation (1 + 2 + 3...).   If the line has been cleared, we need to reset that boolean to false.
+     arithmetic operation (1 + 2 + 3...). If the line has been cleared, we need to reset that boolean to false.
+     
      - PostCondition: The currentMode has been set for the calculator, the previously entered number stored in current
      number, and if necessary, the previous calculation has been evaluated.
      
@@ -389,8 +388,7 @@ class ViewController: UIViewController {
      
      - Situations where the current Operation is not the same as the one that was just tapped
      * Situation A) start-up, current Operation is .NON and no numbers have been entered before tapping this op -> we want to display "Choose Num" to the user via inputLine
-     * Situation B)  after start-up (curent mode is set to some other valid Op), no number was immediately entered before tapping this operation, so we want to re-store the number on the line into currentNum, set the the currentMode to the passed-in operation
-     return
+     * Situation B)  after start-up (curent mode is set to some other valid Op), no number was immediately entered before tapping this operation, so we want to re-store the number on the line into currentNum, set the the currentMode to the passed-in operation return
      * Situation C) At Anytime, a number has been entered, store the number, evaluate and set inputLine to result
      
      - Situations where the current operation is the same as the one that was just tapped
@@ -402,42 +400,19 @@ class ViewController: UIViewController {
      */
     func tappedOperation(op: operationMode){
         
-        guard inputLine.text != "" && Int(inputLine.text!)! != OVERFLOW else{
-            return
+        guard inputLine.text?.lowercased() !=
+        "overflow", inputLine.text?.lowercased() !=
+        "err div 0", inputLine.text != "Choose Num"
+            else{
+                return
         }
         
-        
-        switch op{
-            
-            
-            /*
-        case .ADD: track
-             
-        case .SUB: track
-             
-        case .MUL: track
-             
-        case .DIV: track
-             
-        case .MOD: track
-             
-        case .EQL: track
-             
-        case .ERR: track
-             
-        case .NON: track
-            */
-            
-            
-        default: return ;
-        }
         
         
         
         
         
     }
-    
     //-----------------------------------------------------------------------------------------------------------------------
     
     
@@ -487,6 +462,7 @@ class ViewController: UIViewController {
      the app, there will occasionally be error messages on the and we don't to accidentally use those values).
      
      If this works, set the currentNum to the unwrapped int value.
+     
      Make sure we have not already just tapped some operation. Otherwise return. (Explanation: IF user already tapped an op we neither want to increment the number of entries nor update the label but we do want)
      
      The current num should already have been saved when we tapped the first operation (subsequent taps do nothing)
@@ -501,19 +477,22 @@ class ViewController: UIViewController {
      */
     func storeCurrNum() {
         
-        var inputString: String = ""
-        
-        guard inputLine.text == "" else{
+        guard inputLine.text != "" else{
             print("There is nothing to grab.")
             return
         }
         
-        guard inputString == "" else{
-            print("The input String is empty.")
+        if justTappedOP == true{
             return
+        }else{
+            currentNum = Int(inputLine.text!)!
+            
+            if numEntries == 0{
+                HistoryLabel.text = String(currentNum)
+            }
+            
+            numEntries += 1
         }
-        
-        
         
         
         
@@ -643,7 +622,41 @@ class ViewController: UIViewController {
     func updateSaved(_ theMode: operationMode){
         
         
-        
+        switch theMode{
+            
+        case operationMode.ADD:
+            
+            
+            
+            
+            inputLine.text = String(savedNum + currentNum)
+            
+            
+            
+            
+            /*
+        case operationMode.SUB:
+            
+        case operationMode.MUL:
+            
+        case operationMode.DIV:
+            
+        case operationMode.MOD:
+            
+        case operationMode.EQL:
+            
+        case operationMode.ERR:
+            
+        case operationMode.NON:
+            */
+ 
+ 
+ 
+ 
+ 
+ 
+        default: return
+        }
         
         
         
@@ -709,8 +722,6 @@ class ViewController: UIViewController {
         }
         
         else{
-            
-            
             if inputLine.text == String(0){
                 inputLine.text = ""
             }
