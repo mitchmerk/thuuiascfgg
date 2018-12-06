@@ -1,7 +1,7 @@
 //  ViewController.swift
 //  phoneCalc
 //
-//  Created by Jacob Levy on 11/10/18.
+//  Created by Mitch Merkowsky on 12/6/18.
 //  Copyright © 2018 Jacob Levy. All rights reserved.
 /**
  The algorithm contained in this file, as well as the concept of the project is proprietary and using either for profit
@@ -18,8 +18,8 @@
  _The relevant videos to help you get started are located in Chapter 2 (Displaying tapped numbers in the
  Calculator, Making the Clear Button Clear All Values, Setting the Calculator to Add or Subtract, and Showing
  the total when the equals button is tapped)_.
- 
  *****/
+
 import UIKit
 
 /**
@@ -83,7 +83,7 @@ class ViewController: UIViewController {
     ///String that represents the number on the input line
     var inputString = "0"
     
-    //-----------------------------------------------------------------------------------------------------------------------
+    //=======================================================================================================================
     
     /**
      This is a more complicated version of the pre-checks performed in the Lynda video series.
@@ -115,7 +115,10 @@ class ViewController: UIViewController {
             
             return false
             
-        }else{
+        }
+        
+        
+        if tappedEQL == true {
             
             if currentMode == operationMode.ERR{
                 clearHistory()
@@ -129,11 +132,11 @@ class ViewController: UIViewController {
             }
             
         }
-         */
+        */
         return true
     }
     
-    //-----------------------------------------------------------------------------------------------------------------------
+    //=======================================================================================================================
     
     /**
      The button tap functions.  Each Numeric button must make sure they run passChecks successfully or else they should
@@ -223,31 +226,39 @@ class ViewController: UIViewController {
     //All of these methods call tappedOperation and pass in their corresponding operationMode value
     ///Runs when the + button was tapped
     @IBAction func didTapPlus(){
-        
+        inputLine.text?.append("+")
         tappedOperation(op: .ADD)
     }
+    
     ///Runs when the - button was tapped
     @IBAction func didTapSubt(){
+        
+        inputLine.text?.append("-")
         tappedOperation(op: .SUB)
-        
-    }
-    ///Runs when the x button was tapped
-    @IBAction func didTapMult() {
-        tappedOperation(op: .MUL)
-        
-    }
-    ///Runs when the ÷ button was tapped
-    @IBAction func didTapDiv(){
-        tappedOperation(op: .DIV)
-        
-    }
-    ///Runs when the % button was tapped
-    @IBAction func didTapMod(){
-        tappedOperation(op: .MOD)
-        
     }
     
-    //-----------------------------------------------------------------------------------------------------------------------
+    ///Runs when the x button was tapped
+    @IBAction func didTapMult() {
+        
+        inputLine.text?.append("*")
+        tappedOperation(op: .MUL)
+    }
+    
+    ///Runs when the ÷ button was tapped
+    @IBAction func didTapDiv(){
+        
+        inputLine.text?.append("/")
+        tappedOperation(op: .DIV)
+    }
+    
+    ///Runs when the % button was tapped
+    @IBAction func didTapMod(){
+        
+        inputLine.text?.append("%")
+        tappedOperation(op: .MOD)
+    }
+    
+    //=======================================================================================================================
     
     /**
      clears out current (most recently typed) number and (most recently chosen) Mode
@@ -308,7 +319,7 @@ class ViewController: UIViewController {
         
     }
     
-    //-----------------------------------------------------------------------------------------------------------------------
+    //=======================================================================================================================
     
     /**
      Clears out the current number and mode, as well as saved Number and History and resets to app starting conditions
@@ -322,7 +333,7 @@ class ViewController: UIViewController {
         inputLine.text = ""
     }
     
-    //-----------------------------------------------------------------------------------------------------------------------
+    //=======================================================================================================================
     
     ///Pre Condition: None
     ///Post Condition: All numbers and booleans have been cleared and reset to app start up values
@@ -368,7 +379,7 @@ class ViewController: UIViewController {
         clearHistory()
     }
     
-    //-----------------------------------------------------------------------------------------------------------------------
+    //=======================================================================================================================
     
     /**
      - PreCondition:  Either some number has been entered into the input line or we are continuing some sort of chained
@@ -396,8 +407,8 @@ class ViewController: UIViewController {
      * Situation E) After making sure a number was entered, store the number, evaluate and set the inputLine to result
      
      Before exiting, set the booleans for justTappedOp to True and enteringNumber to False for any situations that have not already returned
-     
      */
+    
     func tappedOperation(op: operationMode){
         
         guard inputLine.text?.lowercased() !=
@@ -412,8 +423,14 @@ class ViewController: UIViewController {
         
         
         
+        
+        
+        
+        
+        
+        
     }
-    //-----------------------------------------------------------------------------------------------------------------------
+    //=======================================================================================================================
     
     
     /**
@@ -439,13 +456,13 @@ class ViewController: UIViewController {
         }
         
         
-        
+        inputLine.text?.append(" ")
         
         
         
     }
     
-    //-----------------------------------------------------------------------------------------------------------------------
+    //=======================================================================================================================
     
     /**
      Stores the current number on the inputLine, if it is indeed a number and increments the total number of entries
@@ -496,7 +513,7 @@ class ViewController: UIViewController {
         
     }
     
-    //-----------------------------------------------------------------------------------------------------------------------
+    //=======================================================================================================================
     
     /**
      - PreCondition: The user tapped =
@@ -506,7 +523,7 @@ class ViewController: UIViewController {
      
      make sure that we didn't just tap an operation (aka 3, +, =  is invalid)
      
-     if tappedEQL is false (this is not a repeated tap)& a number was not previously entered & currentMod is NON & an Op was not tapped then set the inputLine to the saved Number, aka don't change the inputLine (nothing has happened)
+     if tappedEQL is false (this is not a repeated tap)& a number was not previously entered & currentMode is NON & an Op was not tapped then set the inputLine to the saved Number, aka don't change the inputLine (nothing has happened)
      
      if the currentMode is not NON, set the prevMode to the value of currentMode (we are about to set currentMode to .NON)
      
@@ -522,18 +539,25 @@ class ViewController: UIViewController {
             return
         }
         
-        if tappedEQL == false && enteringNumber == false && currentMode == currentMode.NON &&  {
+        if tappedEQL == false && enteringNumber == false /*&& currentMode = !operationMode */{
             
-            inputLine.text = savedNum
+          //  if operationMode.NON  {
+            
+            //inputLine.text = String(savedNum)
+                
+                
+           // }
+            
+            
             
         }
         
         
-        
+    
         
     }
     
-    //-----------------------------------------------------------------------------------------------------------------------
+    //=======================================================================================================================
     
     /**
      - PreCondition: The user tapped an operation(+ * - ÷ % =) and the current number and mode and must be used to modify the saved number
@@ -607,7 +631,7 @@ class ViewController: UIViewController {
         return String(savedNum)
     }
     
-    //-----------------------------------------------------------------------------------------------------------------------
+    //=======================================================================================================================
     
     /**
      Updates the value on the inputLine based on what the user is entering via the numberpad.
@@ -631,12 +655,12 @@ class ViewController: UIViewController {
             
            currentNum = Int(inputLine.text!)!
             
-            inputLine.text = String(savedNum + currentNum)
+           inputLine.text = String(savedNum + currentNum)
             
             
             
             
-            /*
+        /*
         case operationMode.SUB:
             
         case operationMode.MUL:
@@ -650,7 +674,7 @@ class ViewController: UIViewController {
         case operationMode.ERR:
             
         case operationMode.NON:
-            */
+        */
  
  
  
@@ -666,7 +690,7 @@ class ViewController: UIViewController {
         
     }
     
-    //-----------------------------------------------------------------------------------------------------------------------
+    //=======================================================================================================================
     
     /**
      you write this algorithm.  Based on the passed-in operation and value update the feed.
@@ -693,7 +717,7 @@ class ViewController: UIViewController {
         
     }
     
-    //-----------------------------------------------------------------------------------------------------------------------
+    //=======================================================================================================================
     
     /**
      Returns the optional String that is currently stored on the inputLine.  use this whenever you need the most recent number on the line
@@ -705,7 +729,7 @@ class ViewController: UIViewController {
         return inputLine.text
     }
     
-    //-----------------------------------------------------------------------------------------------------------------------
+    //=======================================================================================================================
     
     /**
      - PreCondition: None
@@ -732,7 +756,7 @@ class ViewController: UIViewController {
         }
         
     }
-    //-----------------------------------------------------------------------------------------------------------------------
+    //=======================================================================================================================
     //////////THESE METHODS ARE NOT PART OF THE PROJECT
     
     override func viewDidLoad() {
