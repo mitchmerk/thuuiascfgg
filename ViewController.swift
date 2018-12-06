@@ -455,11 +455,11 @@ class ViewController: UIViewController {
             return
         }
         
+        inputLine.text?.removeLast()
         
-        inputLine.text?.append(" ")
-        
-        
-        
+        if inputLine.text == "" {
+            inputLine.text? = String("0")
+        }
     }
     
     //=======================================================================================================================
@@ -658,7 +658,7 @@ class ViewController: UIViewController {
            inputLine.text = String(savedNum + currentNum)
             
             
-            
+        // facebook node red type what the guy said in the video
             
         /*
         case operationMode.SUB:
