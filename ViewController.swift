@@ -494,11 +494,6 @@ class ViewController: UIViewController {
             numEntries += 1
         }
         
-        
-        
-        
-        
-        
     }
     
     //-----------------------------------------------------------------------------------------------------------------------
@@ -523,8 +518,15 @@ class ViewController: UIViewController {
      */
     @IBAction func tappedEvaluate(){
         
+        guard justTappedOP == !false else{
+            return
+        }
         
-        
+        if tappedEQL == false && enteringNumber == false && currentMode == currentMode.NON &&  {
+            
+            inputLine.text = savedNum
+            
+        }
         
         
         
@@ -627,7 +629,7 @@ class ViewController: UIViewController {
         case operationMode.ADD:
             
             
-            
+           currentNum = Int(inputLine.text!)!
             
             inputLine.text = String(savedNum + currentNum)
             
@@ -726,13 +728,8 @@ class ViewController: UIViewController {
                 inputLine.text = ""
             }
             
-            
-            
             inputLine.text!.append(String(num))
-            
-            
         }
-        
         
     }
     //-----------------------------------------------------------------------------------------------------------------------
