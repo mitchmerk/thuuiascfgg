@@ -2,7 +2,7 @@
 //  phoneCalc
 //
 //  Created by Mitch Merkowsky on 12/6/18.
-//  Copyright © 2018 Jacob Levy. All rights reserved.
+//  Copyright © 2018 Mitch Merkowsky. All rights reserved.
 /**
  The algorithm contained in this file, as well as the concept of the project is proprietary and using either for profit
  without express written permission constitutes a form of plagiarism and theft. This project and algorithm may be re
@@ -232,28 +232,24 @@ class ViewController: UIViewController {
     
     ///Runs when the - button was tapped
     @IBAction func didTapSubt(){
-        
         inputLine.text?.append("-")
         tappedOperation(op: .SUB)
     }
     
     ///Runs when the x button was tapped
     @IBAction func didTapMult() {
-        
         inputLine.text?.append("*")
         tappedOperation(op: .MUL)
     }
     
     ///Runs when the ÷ button was tapped
     @IBAction func didTapDiv(){
-        
         inputLine.text?.append("/")
         tappedOperation(op: .DIV)
     }
     
     ///Runs when the % button was tapped
     @IBAction func didTapMod(){
-        
         inputLine.text?.append("%")
         tappedOperation(op: .MOD)
     }
@@ -290,13 +286,12 @@ class ViewController: UIViewController {
             return
         }
         
-        ///  signals that an operation was tapped before this code is run
         justTappedOP = false
-        /// signals that = was tapped before this code is run
+        
         tappedEQL = false
-        /// signals that either we are currently entering a number or just entered a number
+        
         enteringNumber = false
-        /// signals whether or not the inputLine was just cleared
+        
         justClearedLine = false
         
         justClearedLine = true
@@ -720,11 +715,11 @@ class ViewController: UIViewController {
     //=======================================================================================================================
     
     /**
-     Returns the optional String that is currently stored on the inputLine.  use this whenever you need the most recent number on the line
-     
+     Returns the optional String that is currently stored on the inputLine. Use this whenever you need the most recent number on the line
      - PreCondition: None
      - PostCondition: An optional String has been returned.
      */
+    
     func getText() -> String?{
         return inputLine.text
     }
