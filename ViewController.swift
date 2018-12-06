@@ -653,36 +653,11 @@ class ViewController: UIViewController {
            inputLine.text = String(savedNum + currentNum)
             
             
-        // facebook node red type what the guy said in the video
+        //Facebook node red type what the guy said in the video.
             
-        /*
-        case operationMode.SUB:
-            
-        case operationMode.MUL:
-            
-        case operationMode.DIV:
-            
-        case operationMode.MOD:
-            
-        case operationMode.EQL:
-            
-        case operationMode.ERR:
-            
-        case operationMode.NON:
-        */
- 
- 
- 
- 
- 
  
         default: return
         }
-        
-        
-        
-        
-        
     }
     
     //=======================================================================================================================
