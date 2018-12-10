@@ -48,7 +48,7 @@ enum operationMode{
 class ViewController: UIViewController {
     
     /**
-     the Feed that starts off by saying *"This is History"*.   There's room for anywhere up to 8 lines
+     the Feed that starts off by saying *"This is History"*. There's room for anywhere up to 8 lines
      of text on this label.  You must keep track of NO LESS than the previous 5 operations in a feed that moves up the
      screen.
      */
@@ -139,8 +139,8 @@ class ViewController: UIViewController {
     //=======================================================================================================================
     
     /**
-     The button tap functions.  Each Numeric button must make sure they run passChecks successfully or else they should
-     have no effect.  If passChecks is successful then the updateValue method is called with the appropriate numeric
+     The button tap functions. Each Numeric button must make sure they run passChecks successfully or else they should
+     have no effect. If passChecks is successful then the updateValue method is called with the appropriate numeric
      value*/
     @IBAction func didTap1(){
         
@@ -257,7 +257,7 @@ class ViewController: UIViewController {
     //=======================================================================================================================
     
     /**
-     clears out current (most recently typed) number and (most recently chosen) Mode
+     Clears out current (most recently typed) number and (most recently chosen) Mode
      
      - PreCondition: None, but assumes some number has been entered and some mode has been chosen (has no effect
      otherwise)
@@ -383,7 +383,7 @@ class ViewController: UIViewController {
      - PostCondition: The currentMode has been set for the calculator, the previously entered number stored in current
      number, and if necessary, the previous calculation has been evaluated.
      
-     - parameter  op: the arithmetic operation that has been tapped
+     - parameter  op: The arithmetic operation that has been tapped
      
      __Algorithm__ :
      Make sure that the inputLine does not say "overflow", "err div 0", or "Choose Num", otherwise display Choose
@@ -393,13 +393,14 @@ class ViewController: UIViewController {
      Now 5 situations must be accounted for:
      
      - Situations where the current Operation is not the same as the one that was just tapped
-     * Situation A) start-up, current Operation is .NON and no numbers have been entered before tapping this op -> we want to display "Choose Num" to the user via inputLine
-     * Situation B)  after start-up (curent mode is set to some other valid Op), no number was immediately entered before tapping this operation, so we want to re-store the number on the line into currentNum, set the the currentMode to the passed-in operation return
-     * Situation C) At Anytime, a number has been entered, store the number, evaluate and set inputLine to result
+         * Situation A) start-up, current Operation is .NON and no numbers have been entered before tapping this op -> we want to display "Choose Num" to the user via inputLine
+         * Situation B)  after start-up (curent mode is set to some other valid Op), no number was immediately entered before tapping this operation,
+            so we want to re-store the number on the line into currentNum, set the the currentMode to the passed-in operation return
+         * Situation C) At Anytime, a number has been entered, store the number, evaluate and set inputLine to result
      
      - Situations where the current operation is the same as the one that was just tapped
-     * Situation D) Make sure that the user was entering a number before the op was tapped otherwise return
-     * Situation E) After making sure a number was entered, store the number, evaluate and set the inputLine to result
+         * Situation D) Make sure that the user was entering a number before the op was tapped otherwise return
+         * Situation E) After making sure a number was entered, store the number, evaluate and set the inputLine to result
      
      Before exiting, set the booleans for justTappedOp to True and enteringNumber to False for any situations that have not already returned
      */
@@ -429,18 +430,18 @@ class ViewController: UIViewController {
     
     
     /**
-     - PreCondition:  There is some entered Number on the inputLine.
-     - PostCondition:  The most recently entered digit has been removed.
+     - PreCondition: There is some entered Number on the inputLine.
+     - PostCondition: The most recently entered digit has been removed.
      
      
      _BackSpace_
-     You will have to figure out the algorithm for how to handle backspaces.  The behavior should match that described
+     You will have to figure out the algorithm for how to handle backspaces. The behavior should match that described
      in the specification document.
      
      - Hints:
      To make things easier on you, Backspace should be disabled if an operation was just tapped before this (number was
      entered), the line was just cleared, or if = was just tapped (there's a result on the inputLine), and when any
-     message is displayed on the inputLine.  If the line only contains a single number (0 or otherwise) then
+     message is displayed on the inputLine. If the line only contains a single number (0 or otherwise) then
      backspacing over it, should result in a 0 being sent back to the inputLine (0 is the same as no entered Value).
      
      */
