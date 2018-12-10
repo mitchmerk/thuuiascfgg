@@ -518,7 +518,7 @@ class ViewController: UIViewController {
      
      make sure that we didn't just tap an operation (aka 3, +, =  is invalid)
      
-     if tappedEQL is false (this is not a repeated tap)& a number was not previously entered & currentMode is NON & an Op was not tapped then set the inputLine to the saved Number, aka don't change the inputLine (nothing has happened)
+     if tappedEQL is false (this is not a repeated tap)& a number was not previously entered & currentMode is NON & and Op was not tapped then set the inputLine to the saved Number, aka don't change the inputLine (nothing has happened)
      
      if the currentMode is not NON, set the prevMode to the value of currentMode (we are about to set currentMode to .NON)
      
@@ -529,27 +529,21 @@ class ViewController: UIViewController {
      
      */
     @IBAction func tappedEvaluate(){
-        /*
-        guard justTappedOP == true else{
-            return
+        
+         guard justTappedOP == true else{
+         return
+         }
+         
+         if tappedEQL == false && enteringNumber == false && currentMode == operationMode.NON && justTappedOP == false {
+            
+            HistoryLabel.text = String(savedNum)
+            
+         }else{
+            //updateHistory(op: currentMode , valueGrabbed: Int(inputLine.text!)!)
+            //evaluate(pressedEq: true, prevMode: currentMode)
+            
         }
         
-        if tappedEQL == false && enteringNumber == false /*&& currentMode = !operationMode */{
-            
-            //  if operationMode.NON  {
-            
-            //inputLine.text = String(savedNum)
-            
-            
-            // }
-            
-            
-            
-        }else{
-        */
-        
-        updateHistory(op: currentMode , valueGrabbed: Int(inputLine.text!)!)
-       // }
     }
     
     //=======================================================================================================================
@@ -663,7 +657,7 @@ class ViewController: UIViewController {
     //=======================================================================================================================
     
     /**
-     you write this algorithm.  Based on the passed-in operation and value update the feed.
+     You write this algorithm.  Based on the passed-in operation and value update the feed.
      If the number of Entries is greater than 5, remove the first line.
      
      __HINT__: this is the same thing we did on Lab 8.
