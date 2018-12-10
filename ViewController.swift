@@ -109,30 +109,30 @@ class ViewController: UIViewController {
     
     func passChecks() -> Bool{
         /*
-        if justClearedLine == true{
-            
-            inputLine.text = ""
-            
-            return false
-            
-        }
-        
-        
-        if tappedEQL == true {
-            
-            if currentMode == operationMode.ERR{
-                clearHistory()
-            }
-            
-            if tappedEQL == true{
-                
-                currentNum = 0
-                
-                savedNum = 0
-            }
-            
-        }
-        */
+         if justClearedLine == true{
+         
+         inputLine.text = ""
+         
+         return false
+         
+         }
+         
+         
+         if tappedEQL == true {
+         
+         if currentMode == operationMode.ERR{
+         clearHistory()
+         }
+         
+         if tappedEQL == true{
+         
+         currentNum = 0
+         
+         savedNum = 0
+         }
+         
+         }
+         */
         return true
     }
     
@@ -407,8 +407,8 @@ class ViewController: UIViewController {
     func tappedOperation(op: operationMode){
         
         guard inputLine.text?.lowercased() !=
-        "overflow", inputLine.text?.lowercased() !=
-        "err div 0", inputLine.text != "Choose Num"
+            "overflow", inputLine.text?.lowercased() !=
+            "err div 0", inputLine.text != "Choose Num"
             else{
                 return
         }
@@ -529,27 +529,27 @@ class ViewController: UIViewController {
      
      */
     @IBAction func tappedEvaluate(){
-        
-        guard justTappedOP == !false else{
+        /*
+        guard justTappedOP == true else{
             return
         }
         
         if tappedEQL == false && enteringNumber == false /*&& currentMode = !operationMode */{
             
-          //  if operationMode.NON  {
+            //  if operationMode.NON  {
             
             //inputLine.text = String(savedNum)
-                
-                
-           // }
+            
+            
+            // }
             
             
             
-        }
+        }else{
+        */
         
-        
-    
-        
+        updateHistory(op: currentMode , valueGrabbed: Int(inputLine.text!)!)
+       // }
     }
     
     //=======================================================================================================================
@@ -648,14 +648,14 @@ class ViewController: UIViewController {
         case operationMode.ADD:
             
             
-           currentNum = Int(inputLine.text!)!
+            currentNum = Int(inputLine.text!)!
             
-           inputLine.text = String(savedNum + currentNum)
+            inputLine.text = String(savedNum + currentNum)
             
             
-        //Facebook node red type what the guy said in the video.
+            //Facebook node red type what the guy said in the video.
             
- 
+            
         default: return
         }
     }
@@ -680,7 +680,7 @@ class ViewController: UIViewController {
     func updateHistory(op: operationMode, valueGrabbed: Int){
         
         
-        
+        HistoryLabel.text = String(valueGrabbed)
         
         
         
@@ -716,7 +716,7 @@ class ViewController: UIViewController {
         if numEntries > 11{
             OVERFLOW
         }
-        
+            
         else{
             if inputLine.text == String(0){
                 inputLine.text = ""
