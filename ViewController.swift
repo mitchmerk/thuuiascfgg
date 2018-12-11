@@ -277,7 +277,7 @@ class ViewController: UIViewController {
      */
     @IBAction func didTapClear(){
         
-        //have to reference this everytime
+        //Have to reference this everytime
         guard currentMode != operationMode.ERR else{
             return
         }
@@ -448,9 +448,10 @@ class ViewController: UIViewController {
         
         // situation C
         if enteringNumber == true{
+            
             updateValue(num: currentNum)
             
-            inputLine.text = String(savedNum)
+            HistoryLabel.text = String(savedNum)
             
         }
         
@@ -627,7 +628,6 @@ class ViewController: UIViewController {
      
      Lastly, update the savedNum with the updateSaved using the currentMode
      
-     
      Else if we are evaluating as part of a chained operation ( 5, +, 4 , *, 3, -...), = was not tapped
      
      Check to make sure we aren't dividing by 0.
@@ -641,7 +641,6 @@ class ViewController: UIViewController {
      
      Update the savedNum with currentMode
      if number of entries is greater than 1 update the history with the currentMode and current Number
-     
      
      */
     func evaluate(pressedEq: Bool, prevMode: operationMode)-> String{
@@ -676,7 +675,6 @@ class ViewController: UIViewController {
         switch theMode{
             
         case operationMode.ADD:
-            
             
             currentNum = Int(inputLine.text!)!
             
@@ -713,8 +711,6 @@ class ViewController: UIViewController {
         HistoryLabel.text = String(valueGrabbed)
         
         
-        
-        
     }
     
     //=======================================================================================================================
@@ -743,14 +739,13 @@ class ViewController: UIViewController {
      */
     func updateValue(num: Int){
         
-        if numEntries > 11{
+        guard numEntries > 11 else{
             inputLine.text = "OVERFLOW"
+            return
         }
-            
-        else{
-            if inputLine.text == String(0){
+        
+        if inputLine.text == String(0){
                 inputLine.text = ""
-            }
             
             inputLine.text!.append(String(num))
         }
