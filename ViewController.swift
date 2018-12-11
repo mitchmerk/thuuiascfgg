@@ -562,7 +562,6 @@ class ViewController: UIViewController {
      
      set the appropriate flags
      if the current mode is not in ERR, set the mode to NON
-     
      */
     @IBAction func tappedEvaluate(){
         
@@ -571,25 +570,19 @@ class ViewController: UIViewController {
         }
         
         if tappedEQL == false && enteringNumber == false && currentMode == operationMode.NON && justTappedOP == false {
-            
             inputLine.text = String(savedNum)
-            
-            
-            HistoryLabel.text = String(savedNum)
-            
         }
         
         if currentMode != operationMode.NON{
             
-            prevMode == currentMode
+            prevMode = currentMode
             
             inputLine.text = evaluate(pressedEq: true, prevMode: prevMode)
-            
             
         }
         
         if currentMode != operationMode.ERR{
-            currentMode == operationMode.NON
+            currentMode = operationMode.NON
         }
         
     }
