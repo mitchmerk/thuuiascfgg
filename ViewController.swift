@@ -110,10 +110,10 @@ class ViewController: UIViewController {
     func passChecks() -> Bool{
         
          if justClearedLine == true{
-         
-         inputLine.text = ""
-         
-         return false
+            
+            inputLine.text = ""
+            
+            return false
          
         }
         
@@ -124,14 +124,14 @@ class ViewController: UIViewController {
         }
          
          if currentMode == operationMode.ERR{
-         clearHistory()
+            
+            clearHistory()
         }
          
          if tappedEQL == true{
-         
-         currentNum = 0
-         
-         savedNum = 0
+            
+            currentNum = 0
+            savedNum = 0
         }
         
         if currentMode == operationMode.ERR {
@@ -312,6 +312,7 @@ class ViewController: UIViewController {
             inputLine.text = String(savedNum)
             justClearedLine = true
         }
+        clearHistory()
     }
     
     //=======================================================================================================================
@@ -325,6 +326,19 @@ class ViewController: UIViewController {
      You fill in this method.  It should reset all of the flags and other values to their start-up state
      */
     func clearHistory(){
+        justTappedOP = false
+        
+        tappedEQL = false
+        
+        enteringNumber = false
+        
+        justClearedLine = false
+        
+        justClearedLine = true
+        
+        currentMode = operationMode.NON
+        
+        prevMode = operationMode.NON
         HistoryLabel.text = ""
     }
     
@@ -432,22 +446,22 @@ class ViewController: UIViewController {
             
         }
         
-        //situation A
-        if currentMode == operationMode.NON && enteringNumber == false {
+        //Situation A
+        else if currentMode == operationMode.NON && enteringNumber == false {
             
             inputLine.text = "Choose Num"
             
         }
         
-        //situation B
-        if currentMode != operationMode.NON && enteringNumber == false{
+        //Situation B
+        else if currentMode != operationMode.NON && enteringNumber == false{
             
             currentMode = op
             
         }
         
-        // situation C
-        if enteringNumber == true{
+        //Situation C
+        else if enteringNumber == true{
             
             updateValue(num: currentNum)
             
@@ -645,13 +659,37 @@ class ViewController: UIViewController {
      */
     func evaluate(pressedEq: Bool, prevMode: operationMode)-> String{
         
+        //this is where the switch statement goes.
+        //add guards for the
         
         
+        guard inputLine.text != "" && currentMode != operationMode.ERR else{
+            return inputLine.text!
+        }
         
+        if pressedEq == true{
+            
+            
+           // switch switchCalc {
+                
+                
+                
+                
+                
+                
+                
+                
+            //}
         
+            if justTappedOP == false && enteringNumber == false{
+                
+                
+            }
+            
+            
+            
         
-        
-        
+        }
         return String(savedNum)
     }
     
@@ -739,8 +777,9 @@ class ViewController: UIViewController {
      */
     func updateValue(num: Int){
         
-        if numEntries > 11{
+        if inputLine.text!.count > 11{
             inputLine.text = "OVERFLOW"
+            
         }
             
         else{
