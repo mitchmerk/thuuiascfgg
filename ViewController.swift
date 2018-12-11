@@ -108,31 +108,33 @@ class ViewController: UIViewController {
      */
     
     func passChecks() -> Bool{
-        /*
+        
          if justClearedLine == true{
          
          inputLine.text = ""
          
          return false
          
-         }
-         
-         
-         if tappedEQL == true {
+        }
+        
+        //if tappedEQL == true {
          
          if currentMode == operationMode.ERR{
          clearHistory()
-         }
+        }
          
          if tappedEQL == true{
          
          currentNum = 0
          
          savedNum = 0
-         }
-         
-         }
-         */
+        }
+        
+        if currentMode == operationMode.ERR {
+            clearHistory()
+        }
+        
+ 
         return true
     }
     
@@ -570,12 +572,24 @@ class ViewController: UIViewController {
         
         if tappedEQL == false && enteringNumber == false && currentMode == operationMode.NON && justTappedOP == false {
             
+            inputLine.text = String(savedNum)
+            
+            
             HistoryLabel.text = String(savedNum)
             
-        }else{
-            //updateHistory(op: currentMode , valueGrabbed: Int(inputLine.text!)!)
-            //evaluate(pressedEq: true, prevMode: currentMode)
+        }
+        
+        if currentMode != operationMode.NON{
             
+            prevMode == currentMode
+            
+            inputLine.text = evaluate(pressedEq: true, prevMode: prevMode)
+            
+            
+        }
+        
+        if currentMode != operationMode.ERR{
+            currentMode == operationMode.NON
         }
         
     }
