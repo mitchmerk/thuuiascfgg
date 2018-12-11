@@ -470,7 +470,7 @@ class ViewController: UIViewController {
         }
         
         //situation D
-        //if
+        if enteringNumber == true &&
         
         
     }
@@ -644,6 +644,7 @@ class ViewController: UIViewController {
      
      Else if we are evaluating as part of a chained operation ( 5, +, 4 , *, 3, -...), = was not tapped
      
+     //================vvvvvvvvvvvvif its falsevvvvvvvvvvv==============
      Check to make sure we aren't dividing by 0.
      IF we are, set mode to .ERR and  you must return some div 0 error message.
      If we are on the second Entry return the savedNum to the inputLine as a String
@@ -659,13 +660,36 @@ class ViewController: UIViewController {
      */
     func evaluate(pressedEq: Bool, prevMode: operationMode)-> String{
         
-        //this is where the switch statement goes.
-        //add guards for the
-        
-        
         guard inputLine.text != "" && currentMode != operationMode.ERR else{
             return inputLine.text!
         }
+        
+        //this is where the switch statement goes.
+        
+        switch currentMode{
+            
+        case .ADD:
+            print("ADD")
+        case .SUB:
+            print("Sub")
+        case .DIV:
+            print("")
+        case .MUL:
+            print("")
+        case .EQL:
+            print("")
+            
+            
+            
+            
+        default: print("")
+        }
+        
+        
+        
+        
+        
+        
         
         if pressedEq == true{
             
