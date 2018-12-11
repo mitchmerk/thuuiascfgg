@@ -739,13 +739,14 @@ class ViewController: UIViewController {
      */
     func updateValue(num: Int){
         
-        guard numEntries > 11 else{
+        if numEntries > 11{
             inputLine.text = "OVERFLOW"
-            return
         }
-        
-        if inputLine.text == String(0){
+            
+        else{
+            if inputLine.text == String(0){
                 inputLine.text = ""
+            }
             
             inputLine.text!.append(String(num))
         }
