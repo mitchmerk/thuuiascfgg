@@ -393,14 +393,20 @@ class ViewController: UIViewController {
      Now 5 situations must be accounted for:
      
      - Situations where the current Operation is not the same as the one that was just tapped
-         * Situation A) start-up, current Operation is .NON and no numbers have been entered before tapping this op -> we want to display "Choose Num" to the user via inputLine
-         * Situation B)  after start-up (curent mode is set to some other valid Op), no number was immediately entered before tapping this operation,
-            so we want to re-store the number on the line into currentNum, set the the currentMode to the passed-in operation return
-         * Situation C) At Anytime, a number has been entered, store the number, evaluate and set inputLine to result
+     
+     * Situation A) start-up, current Operation is .NON and no numbers have been entered before tapping this op -> we want to display
+        "Choose Num" to the user via inputLine
+     
+     * Situation B)  after start-up (curent mode is set to some other valid Op), no number was immediately entered before tapping this operation,
+        so we want to re-store the number on the line into currentNum, set the the currentMode to the passed-in operation return
+     
+     * Situation C) At Anytime, a number has been entered, store the number, evaluate and set inputLine to result
      
      - Situations where the current operation is the same as the one that was just tapped
-         * Situation D) Make sure that the user was entering a number before the op was tapped otherwise return
-         * Situation E) After making sure a number was entered, store the number, evaluate and set the inputLine to result
+     
+     * Situation D) Make sure that the user was entering a number before the op was tapped otherwise return
+     
+     * Situation E) After making sure a number was entered, store the number, evaluate and set the inputLine to result
      
      Before exiting, set the booleans for justTappedOp to True and enteringNumber to False for any situations that have not already returned
      */
@@ -415,12 +421,29 @@ class ViewController: UIViewController {
         }
         
         
+        guard inputLine.text == "overflow" && inputLine.text == "err div 0" && inputLine.text == "Choose Num" else{
+            inputLine.text == "Choose Num"
+            return
+        }
         
+        if justClearedLine == true {
+            justClearedLine == false
+        }
         
+        if currentMode == operationMode.NON && enteringNumber == false {
+            
+            inputLine.text = "Choose Num"
+            
+            
+        }
         
-        
-        
-        
+        if currentMode != operationMode.NON && enteringNumber == false{
+            
+            currentMode = op
+            
+            
+            
+        }
         
         
         
@@ -531,15 +554,15 @@ class ViewController: UIViewController {
      */
     @IBAction func tappedEvaluate(){
         
-         guard justTappedOP == true else{
-         return
-         }
-         
-         if tappedEQL == false && enteringNumber == false && currentMode == operationMode.NON && justTappedOP == false {
+        guard justTappedOP == true else{
+            return
+        }
+        
+        if tappedEQL == false && enteringNumber == false && currentMode == operationMode.NON && justTappedOP == false {
             
             HistoryLabel.text = String(savedNum)
             
-         }else{
+        }else{
             //updateHistory(op: currentMode , valueGrabbed: Int(inputLine.text!)!)
             //evaluate(pressedEq: true, prevMode: currentMode)
             
