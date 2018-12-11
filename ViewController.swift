@@ -117,7 +117,11 @@ class ViewController: UIViewController {
          
         }
         
-        //if tappedEQL == true {
+        if tappedEQL == true{
+            
+            savedNum = Int("")!
+            
+        }
          
          if currentMode == operationMode.ERR{
          clearHistory()
@@ -574,17 +578,14 @@ class ViewController: UIViewController {
         }
         
         if currentMode != operationMode.NON{
-            
             prevMode = currentMode
             
-            inputLine.text = evaluate(pressedEq: true, prevMode: prevMode)
-            
+            inputLine.text = evaluate(pressedEq: true, prevMode: prevMode) //THIS LINE MAY NEED EDTITING
         }
         
         if currentMode != operationMode.ERR{
             currentMode = operationMode.NON
         }
-        
     }
     
     //=======================================================================================================================
