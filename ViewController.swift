@@ -427,25 +427,35 @@ class ViewController: UIViewController {
         }
         
         if justClearedLine == true {
+            
             justClearedLine == false
+            
         }
         
+        //situation A
         if currentMode == operationMode.NON && enteringNumber == false {
             
             inputLine.text = "Choose Num"
             
-            
         }
         
+        //situation B
         if currentMode != operationMode.NON && enteringNumber == false{
             
             currentMode = op
             
+        }
+        
+        // situation C
+        if enteringNumber == true{
+            updateValue(num: currentNum)
             
+            inputLine.text = String(savedNum)
             
         }
         
-        
+        //situation D
+        //if
         
         
     }
