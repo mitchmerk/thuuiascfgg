@@ -232,31 +232,26 @@ class ViewController: UIViewController {
     //All of these methods call tappedOperation and pass in their corresponding operationMode value
     ///Runs when the + button was tapped
     @IBAction func didTapPlus(){
-        inputLine.text?.append("+")
         tappedOperation(op: .ADD)
     }
     
     ///Runs when the - button was tapped
     @IBAction func didTapSubt(){
-        inputLine.text?.append("-")
         tappedOperation(op: .SUB)
     }
     
     ///Runs when the x button was tapped
     @IBAction func didTapMult() {
-        inputLine.text?.append("*")
         tappedOperation(op: .MUL)
     }
     
     ///Runs when the ÷ button was tapped
     @IBAction func didTapDiv(){
-        inputLine.text?.append("/")
         tappedOperation(op: .DIV)
     }
     
     ///Runs when the % button was tapped
     @IBAction func didTapMod(){
-        inputLine.text?.append("%")
         tappedOperation(op: .MOD)
     }
     
@@ -317,7 +312,6 @@ class ViewController: UIViewController {
             inputLine.text = String(savedNum)
             justClearedLine = true
         }
-        
     }
     
     //=======================================================================================================================
@@ -331,7 +325,7 @@ class ViewController: UIViewController {
      You fill in this method.  It should reset all of the flags and other values to their start-up state
      */
     func clearHistory(){
-        inputLine.text = ""
+        HistoryLabel.text = ""
     }
     
     //=======================================================================================================================
@@ -689,7 +683,7 @@ class ViewController: UIViewController {
             inputLine.text = String(savedNum + currentNum)
             
             
-            //Facebook node red type what the guy said in the video.
+            
             
             
         default: return
@@ -750,7 +744,7 @@ class ViewController: UIViewController {
     func updateValue(num: Int){
         
         if numEntries > 11{
-            OVERFLOW
+            inputLine.text = "OVERFLOW"
         }
             
         else{
