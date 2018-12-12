@@ -132,10 +132,11 @@ class ViewController: UIViewController {
             enteringNumber = true
             inputLine.text = ""
         }
-        
-        else {(inputLine.text?.count)! > numEntries
-            inputLine.text = "0"
-        }
+//
+//        else {
+////            (inputLine.text?.count)! > numEntries)
+//            inputLine.text = "0"
+//        }
         return true
     }
     
@@ -350,18 +351,18 @@ class ViewController: UIViewController {
     
     func tappedOperation(op: operationMode){
         guard inputLine.text != "OVERFLOW" else { return}
+        enteringNumber = false
+        justTappedOP = true
         if numEntries >= 1 {
             
             
             storeCurrNum()
-            currentMode = op
-            
-            
+          
             inputLine.text = evaluate(pressedEq: false, prevMode: op)
             
-            
-            updateHistory(op: op, valueGrabbed: currentNum) //fix implementation
-            
+            updateHistory(op: currentMode, valueGrabbed: currentNum) //fix implementation
+            currentMode = op
+
             //now change current mode to minus
         }
         if numEntries < 1{
@@ -376,6 +377,7 @@ class ViewController: UIViewController {
         }
         //after first ent
         //store the current number on every tap no matter if first or millionth entry
+        //update current
     }
     
     //=======================================================================================================================
@@ -567,8 +569,6 @@ class ViewController: UIViewController {
             print("Current: \(currentNum)\n")
             
             
-            
-            
         case  .SUB:
             savedNum -= currentNum
             print("Saved: \(savedNum)")
@@ -708,6 +708,7 @@ class ViewController: UIViewController {
         
         if let f = entry.first {
             if f == "0" {
+                print("Removing: \(f)")
                 entry.removeFirst()
             }
         }
