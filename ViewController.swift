@@ -408,19 +408,19 @@ class ViewController: UIViewController {
      
      - Situations where the current Operation is not the same as the one that was just tapped
      
-     * Situation A) start-up, current Operation is .NON and no numbers have been entered before tapping this op -> we want to display
-        "Choose Num" to the user via inputLine
+        * Situation A) start-up, current Operation is .NON and no numbers have been entered before tapping this op -> we want to display
+            "Choose Num" to the user via inputLine
      
-     * Situation B)  after start-up (curent mode is set to some other valid Op), no number was immediately entered before tapping this operation,
-        so we want to re-store the number on the line into currentNum, set the the currentMode to the passed-in operation return
+        * Situation B)  after start-up (curent mode is set to some other valid Op), no number was immediately entered before tapping this operation,
+            so we want to re-store the number on the line into currentNum, set the the currentMode to the passed-in operation return
      
-     * Situation C) At Anytime, a number has been entered, store the number, evaluate and set inputLine to result
+        * Situation C) At Anytime, a number has been entered, store the number, evaluate and set inputLine to result
      
      - Situations where the current operation is the same as the one that was just tapped
      
-     * Situation D) Make sure that the user was entering a number before the op was tapped otherwise return
+        * Situation D) Make sure that the user was entering a number before the op was tapped otherwise return
      
-     * Situation E) After making sure a number was entered, store the number, evaluate and set the inputLine to result
+        * Situation E) After making sure a number was entered, store the number, evaluate and set the inputLine to result
      
      Before exiting, set the booleans for justTappedOp to True and enteringNumber to False for any situations that have not already returned
      */
@@ -469,7 +469,7 @@ class ViewController: UIViewController {
             
         }
         
-        //situation D
+        //Situation D
         if enteringNumber == true &&
         
         
@@ -686,33 +686,13 @@ class ViewController: UIViewController {
         }
         
         
-        
-        
-        
-        
-        
         if pressedEq == true{
-            
-            
-           // switch switchCalc {
-                
-                
-                
-                
-                
-                
-                
-                
-            //}
         
             if justTappedOP == false && enteringNumber == false{
                 
                 
             }
             
-            
-            
-        
         }
         return String(savedNum)
     }
