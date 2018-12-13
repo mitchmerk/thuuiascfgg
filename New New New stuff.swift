@@ -1,7 +1,7 @@
 // ViewController.swift
 // phoneCalc
-// Created by Mitch Merkowsky on 12/11/18.
-// Copyright © 2018 Mitch Merkowksy. All rights reserved.
+// Created by Dominic Lopresti on 12/11/18.
+// Copyright © 2018 Dominic Lopresti. All rights reserved.
 /**
  The algorithm contained in this file, as well as the concept of the project is proprietary and using either for profit
  without express written permission constitutes a form of plagiarism and theft. This project and algorithm may be re
@@ -56,7 +56,9 @@ class ViewController: UIViewController {
     ///The input "screen" for our calculator.  The inputLine displays tapped numbers and results of calculations.
     @IBOutlet weak var inputLine: UILabel!
     
+    
     //Flags for managing the calculator.
+    
     
     ///  signals that an operation was tapped before this code is run
     var justTappedOP = false
@@ -72,6 +74,7 @@ class ViewController: UIViewController {
     var savedNum: Int = 0
     ///Stores the number that is currently on the inputLine
     var currentNum: Int = 0
+    
     
     ///tracks the current operation mode
     var currentMode: operationMode = operationMode.NON
@@ -105,12 +108,15 @@ class ViewController: UIViewController {
      
      */
     func passChecks() -> Bool{
-//        / if justtappedOp, then we need to set enteringNumber to true and just Tapped op to false
-//                if justTappedOP {
-//                        justTappedOP = false
-//                        enteringNumber = true
-//                        inputLine.text = ""
-//                }
+        guard !tappedEQL  else {
+            inputLine.text = "0"
+            return true }
+        /// if justtappedOp, then we need to set enteringNumber to true and just Tapped op to false
+        //        if justTappedOP {
+        //                justTappedOP = false
+        //                enteringNumber = true
+        //                inputLine.text = ""
+        //        }
         guard  !justClearedLine else {
             inputLine.text = "Choose Op"
             return false
@@ -130,6 +136,8 @@ class ViewController: UIViewController {
             enteringNumber = true
             inputLine.text = ""
         }
+        
+        
 //
 //        else {
 ////            (inputLine.text?.count)! > numEntries)
@@ -145,6 +153,7 @@ class ViewController: UIViewController {
      have no effect.  If passChecks is successful then the updateValue method is called with the appropriate numeric
      value*/
     @IBAction func didTap1(){
+        
         guard passChecks() else {
             return
         }
@@ -152,6 +161,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func didTap2(){
+        
         guard passChecks() else {
             return
         }
@@ -159,6 +169,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func didTap3(){
+        
         guard passChecks() else {
             return
         }
@@ -166,6 +177,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func didTap4(){
+        
         guard passChecks() else {
             return
         }
@@ -173,6 +185,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func didTap5(){
+        
         guard passChecks() else {
             return
         }
@@ -180,6 +193,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func didTap6(){
+        
         guard passChecks() else {
             return
         }
@@ -187,6 +201,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func didTap7(){
+        
         guard passChecks() else {
             return
         }
@@ -194,12 +209,15 @@ class ViewController: UIViewController {
     }
     
     @IBAction func didTap8(){
+        
         guard passChecks() else {
             return
         }
         updateValue(num: 8)
+        
     }
     @IBAction func didTap9(){
+        
         guard passChecks() else {
             return
         }
@@ -207,6 +225,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func didTap0(){
+        
         guard passChecks() else {
             return
         }
@@ -218,23 +237,28 @@ class ViewController: UIViewController {
     //All of these methods call tappedOperation and pass in their corresponding operationMode value
     ///Runs when the + button was tapped
     @IBAction func didTapPlus(){
+        
         tappedOperation(op: .ADD)
     }
     ///Runs when the - button was tapped
     @IBAction func didTapSubt(){
         tappedOperation(op: .SUB)
+        
     }
     ///Runs when the x button was tapped
     @IBAction func didTapMult() {
         tappedOperation(op: .MUL)
+        
     }
     ///Runs when the ÷ button was tapped
     @IBAction func didTapDiv(){
         tappedOperation(op: .DIV)
+        
     }
     ///Runs when the % button was tapped
     @IBAction func didTapMod(){
         tappedOperation(op: .MOD)
+        
     }
     
     //=======================================================================================================================
@@ -269,7 +293,6 @@ class ViewController: UIViewController {
             justTappedOP = false
             enteringNumber = false
             currentMode = .NON }
-        print("\u{001B}")
     }
     
     //=======================================================================================================================
@@ -336,26 +359,44 @@ class ViewController: UIViewController {
         guard inputLine.text != "OVERFLOW" else { return}
         enteringNumber = false
         justTappedOP = true
-        if numEntries >= 1 {
-            
-            storeCurrNum()
-          
-            inputLine.text = evaluate(pressedEq: false, prevMode: op)
-            
-            updateHistory(op: currentMode, valueGrabbed: currentNum) //fix implementation
-            currentMode = op
-
-            //now change current mode to minus
-        }
         if numEntries < 1{
             //on first entry, the saved number is the current Number
             storeCurrNum()
-            savedNum =  currentNum
+            
+            savedNum = currentNum
             
             updateHistory(op: op, valueGrabbed: currentNum)
             currentMode = op
             
-            inputLine.text = "0"
+        } else if numEntries >= 1 {
+            
+            
+            storeCurrNum()
+                
+            inputLine.text = evaluate(pressedEq: false, prevMode: op)
+            updateHistory(op: currentMode, valueGrabbed: currentNum) //fix implementation
+
+            currentMode = op
+//            else {
+//                print ("else")
+//                inputLine.text = evaluate(pressedEq: false, prevMode: op)
+//                updateHistory(op: currentMode, valueGrabbed: savedNum) //fix implementation
+//
+//                // updateHistory(op: currentMode, valueGrabbed: currentNum) //fix implementation
+//                currentMode = op
+//            }
+            
+//            if currentMode == prevMode {
+//                storeCurrNum()
+//
+//
+//
+//                inputLine.text = evaluate(pressedEq: false, prevMode: op)
+//
+//                prevMode = op
+//            }
+            
+            //now change current mode to minus
         }
         //after first ent
         //store the current number on every tap no matter if first or millionth entry
@@ -422,6 +463,7 @@ class ViewController: UIViewController {
     func storeCurrNum() {
         guard inputLine.text != "OVERFLOW" || inputLine.text != "ERR DIV 0" || inputLine.text != "CHOOSE NUM" || inputLine.text != "" else { return }
         guard let current = Int(inputLine.text!) else { print("storing current has a problem")
+            
             return }
         currentNum = current
         numEntries+=1
@@ -448,31 +490,122 @@ class ViewController: UIViewController {
      
      */
     @IBAction func tappedEvaluate(){
-        guard justTappedOP == false else{
-            return
+        guard justTappedOP == true || enteringNumber || tappedEQL else { return print("ERROR EQL") }//tapped OP represents *&%+-
+        if tappedEQL == false && enteringNumber == false && currentMode == .NON && justTappedOP == false  {
+            inputLine.text = String(savedNum)
         }
-        
-        
-        if tappedEQL == false && enteringNumber == false && currentMode == operationMode.NON && justTappedOP == false {
-            
-            
-            inputLine.text = evaluate(pressedEq: true, prevMode: currentMode)
-            
-            
-            
-        }
-        
-        if currentMode != operationMode.NON{
-            
+        if currentMode != .NON {
             prevMode = currentMode
-            
-            inputLine.text = evaluate(pressedEq: true, prevMode: prevMode) //THIS LINE MAY NEED EDTITING
+            currentNum = Int(inputLine.text!)!
+            updateHistory(op: prevMode, valueGrabbed: savedNum)
+            currentMode = .NON
+        } else if currentMode != .ERR {
+            currentMode = .NON
         }
-
-        if currentMode != operationMode.ERR{
-        currentMode = operationMode.NON
-
+        inputLine.text = evaluate(pressedEq: true, prevMode: prevMode)
+        
+        if tappedEQL == true {
+            if prevMode == .ADD {
+                HistoryLabel.text?.append("+ ")
+            }
+            if prevMode == .MUL {
+                HistoryLabel.text?.append("* ")
+            }
+            if prevMode == .DIV {
+                HistoryLabel.text?.append("/ ")
+            }
+            if prevMode == .SUB {
+                HistoryLabel.text?.append("- ")
+            }
+            if prevMode == .MOD {
+                HistoryLabel.text?.append("% ")
+            }
+            
+            
+            HistoryLabel.text?.append("\(currentNum) \n")
+            if numEntries >= 1 {
+            if let index = (HistoryLabel.text?.index(of: "\n")) {
+                HistoryLabel.text?.removeSubrange((HistoryLabel.text!.startIndex...index))
+            }
+                if let index = (HistoryLabel.text?.index(of: "\n")) {
+                    HistoryLabel.text?.removeSubrange((HistoryLabel.text!.startIndex...index))
+                }
+            }
+        }
+        
+        HistoryLabel.text?.append("= \(savedNum) \n")
+        tappedEQL = true//represents equals
+        //updateHistory(op: prevMode, valueGrabbed: savedNum)
+        //set flags
+        print(currentMode)
+        print(prevMode)
+        print("Num: \(numEntries)")
+        
     }
+    
+    //=======================================================================================================================
+    
+    /**
+     - PreCondition: The user tapped an operation(+ * - ÷ % =) and the current number and mode and must be used to modify the saved number
+     - PostCondition:  The current number and mode are evaluated correct
+     
+     - parameters:
+     
+     - pressedEq:  a boolean to represent whether evaluate is being run off of a = tap or if it is being run as part of a chained operation
+     - prevMode:     The previous operating mode of the calculator, determined in the tappedEvaluate method.  This is
+     used when = is tapped multiple times in a row, so the previous operation is repeated
+     
+     __Algorithm__:
+     
+     Make sure that a number is on the inputLine and the currentMode is not set to ERR, otherwise return what is on the input line (maintains error messages)
+     
+     If this method is passed a true value then the = button was tapped.
+     if a number was not entered & = was tapped
+     check if both currentMode AND prevMode == .NON ( no mode has ever been set)
+     if yes, then store/update the currentNumber, update the saved Number with the currentMode
+     if (numEntries > 0) update the History with the currentMode
+     
+     return a String of the current Number
+     If the check for the both Modes == NON is false ( some mode has been previously set, and we are startinga new calculation from the most recently entered number), increment the number of entries update Saved with the previous Mode
+     Make sure that the String of the result (savedNum) is less than 11 chars in length, else set the Mode to .ERR and return an OVERFLOW message
+     update the history with the previous mode and the current Number
+     return a String of savedNum
+     
+     if currentMode is NON & we did just enter a Number & we did not tap an operation before this
+     set savedNum to the currentNumber on the inputLine (start the repeated calculation from the most recent entered number)
+     increment the number of entries (to reflect new starting number)
+     update the History wih currentMode and saved Number
+     return String (savedNum) to the line
+     
+     if a number was entered
+     increment the number of Entries
+     store the current number on the line
+     
+     Check the current number and Mode to see if we're dividing by 0
+     if so, set the currentMode to .ERR and return div 0 error message
+     
+     if the number of entries is > 1, update the History with currentMode and currentNum
+     
+     Lastly, update the savedNum with the updateSaved using the currentMode
+     
+     
+     Else if we are evaluating as part of a chained operation ( 5, +, 4 , *, 3, -...), = was not tapped
+     
+     Check to make sure we aren't dividing by 0.
+     IF we are, set mode to .ERR and  you must return some div 0 error message.
+     If we are on the second Entry return the savedNum to the inputLine as a String
+     if we are still on the first entry, return the number on the Line as a String
+     if we have entered a number before this, number of entries is greater than 0, and currentMode is NON, we are effectively starting a new calculation in the middle of a chain of operations
+     Update the history with the current Mode and currentNumber
+     update the savedNum with currentMode
+     return the savedN Number as a String
+     
+     Update the savedNum with currentMode
+     if number of entries is greater than 1 update the history with the currentMode and current Number
+     
+     inputLine is output
+     historylabel is savedgreetings
+     */
     
     //=======================================================================================================================
     
@@ -484,41 +617,87 @@ class ViewController: UIViewController {
         //            return "ERROR DIV ZERO"
         //        }
         
-        switch currentMode{
+        
+        
+        if pressedEq == false {
+            switch currentMode {
+                
+                //assuming addition
+            //breakthis code into a separate function later
+            case  .ADD:
+                savedNum += currentNum
+                print("Saved: \(savedNum)")
+                print("Current: \(currentNum)\n")
+                
+            case  .MUL:
+                savedNum *= currentNum
+                print("Saved: \(savedNum)")
+                print("Current: \(currentNum)\n")
+                
+            case  .DIV:
+                guard (currentNum != 0 && savedNum != 0) else {
+                    return "ERROR YOU BROKE THE UNIVERSE"
+                }
+                savedNum /= currentNum
+                print("Saved: \(savedNum)")
+                print("Current: \(currentNum)\n")
+                
+            case  .SUB:
+                savedNum -= currentNum
+                print("Saved: \(savedNum)")
+                print("Current: \(currentNum)\n")
+                
+            case .MOD:
+                savedNum %= currentNum
+                print("Saved: \(savedNum)")
+                print("Current: \(currentNum)\n")
+                
+            default: return String(savedNum)
+                }
+        } else if pressedEq == true {
             
-        //assuming addition
+            print("hi there")
+            
+            switch prevMode {
+            //assuming addition
         //breakthis code into a separate function later
         case  .ADD:
-            savedNum += currentNum
-            print("Saved: \(savedNum)")
-            print("Current: \(currentNum)\n")
+            savedNum = savedNum + currentNum
+            print("Saved2: \(savedNum)")
+            print("Current2: \(currentNum)")
+            print("Input: \(inputLine.text!)")
             
         case  .MUL:
-            savedNum *= currentNum
+            savedNum = savedNum * currentNum
             print("Saved: \(savedNum)")
-            print("Current: \(currentNum)\n")
-            
+            print("Current: \(currentNum)")
+            print("Input: \(inputLine.text!)")
+        
         case  .DIV:
             guard (currentNum != 0 && savedNum != 0) else {
-                HistoryLabel.text = "ERROR YOU BROKE THE UNIVERSE"
-                return ""
+                return "ERR Div 0"
             }
-            savedNum /= currentNum
+            savedNum = savedNum / currentNum
             print("Saved: \(savedNum)")
-            print("Current: \(currentNum)\n")
+            print("Current: \(currentNum)")
+            print("Input: \(inputLine.text!)")
             
         case  .SUB:
-            savedNum -= currentNum
+            savedNum = savedNum - currentNum
             print("Saved: \(savedNum)")
-            print("Current: \(currentNum)\n")
+            print("Current: \(currentNum)")
+            print("Input: \(inputLine.text!)")
             
         case .MOD:
-            savedNum %= currentNum
+            savedNum = savedNum % currentNum
             print("Saved: \(savedNum)")
-            print("Current: \(currentNum)\n")
+            print("Current: \(currentNum)")
+            print("Input: \(inputLine.text!)")
             
         default: return String(savedNum)
+            }
         }
+        
         
         //
         //        switch prevMode {
@@ -540,6 +719,12 @@ class ViewController: UIViewController {
         
         return String(savedNum)
     }
+    
+    
+    
+    
+    
+    
     
     //=======================================================================================================================
     
@@ -567,6 +752,7 @@ class ViewController: UIViewController {
      
      __HINT__: this is the same thing we did on Lab 8.
      
+     
      - PreCondition: Some number has been entered and we want to update the feed.
      - PostCondition: The history Feed is correctly updated
      
@@ -578,10 +764,36 @@ class ViewController: UIViewController {
     func updateHistory(op: operationMode, valueGrabbed: Int){
         guard let test2 = inputLine.text else { return }
         
-        if numEntries == 1 {
+        
+        
+        
+        
+        if numEntries == 1{
+            if justTappedOP == true {
             HistoryLabel.text? = (test2 + "\n")
-        }
-        else if numEntries > 1{
+            } else if justTappedOP != true {
+                if op == .ADD {
+                    HistoryLabel.text?.append("+ ")
+                }
+                if op == .MUL {
+                    HistoryLabel.text?.append("* ")
+                }
+                if op == .DIV {
+                    HistoryLabel.text?.append("/ ")
+                }
+                if op == .SUB {
+                    HistoryLabel.text?.append("- ")
+                }
+                if op == .MOD {
+                    HistoryLabel.text?.append("% ")
+                }
+                
+                
+                HistoryLabel.text?.append("\(currentNum) \n")
+            }
+        
+        } else if numEntries > 1 {
+            
             if op == .ADD {
                 HistoryLabel.text?.append("+ ")
             }
@@ -597,14 +809,51 @@ class ViewController: UIViewController {
             if op == .MOD {
                 HistoryLabel.text?.append("% ")
             }
+            
+            
             HistoryLabel.text?.append("\(currentNum) \n")
+            
+            
         }
-        if numEntries  > 5 {
+        if numEntries > 5 {
             if let index = (HistoryLabel.text?.index(of: "\n")) {
                 HistoryLabel.text?.removeSubrange((HistoryLabel.text!.startIndex...index))
             }
         }
-    }
+        
+        
+        
+        
+//        if currentMode == .NON {
+//            if numEntries == 1 {
+//                HistoryLabel.text? = (test2 + "\n")
+//            }
+//            else if numEntries > 1{
+//                if op == .ADD {
+//                    HistoryLabel.text?.append("+- ")
+//                }
+//                if op == .MUL {
+//                    HistoryLabel.text?.append("* ")
+//                }
+//                if op == .DIV {
+//                    HistoryLabel.text?.append("/ ")
+//                }
+//                if op == .SUB {
+//                    HistoryLabel.text?.append("- ")
+//                }
+//                if op == .MOD {
+//                    HistoryLabel.text?.append("% ")
+//                }
+//
+//                HistoryLabel.text?.append("\(savedNum) \n")
+//            }
+//            if numEntries > 5 {
+//                if let index = (HistoryLabel.text?.index(of: "\n")) {
+//                    HistoryLabel.text?.removeSubrange((HistoryLabel.text!.startIndex...index))
+//                }
+//            }
+        }
+    
     
     //=======================================================================================================================
     
@@ -615,10 +864,12 @@ class ViewController: UIViewController {
      - PostCondition: An optional String has been returned.
      */
     func getText() -> String?{
+        
         return inputLine.text
     }
     
     //=======================================================================================================================
+    
     /**
      - PreCondition: None
      - PostCondition: The number tapped has been added to the number being displayed on the inputLine.
@@ -631,27 +882,27 @@ class ViewController: UIViewController {
      */
     
     func updateValue(num: Int) {
-        var entry: String
+        var line: String
         guard let value = inputLine.text else {
             print("there's no value in the input")
             inputLine.text = ""
             return
         }
         
-        entry = value
+        line = value
         
-        if let f = entry.first {
+        if let f = line.first {
             if f == "0" {
                 print("Removing: \(f)")
-                entry.removeFirst()
+                line.removeFirst()
             }
         }
-        guard  entry.count < 11 && entry != "OVERFLOW" else {
-            inputLine.text = "OVEFLOW"
+        guard  line.count < 11 && line != "OVERFLOW" else {
+            inputLine.text = "OVERFLOW"
             currentMode = .ERR
             return
         }
-        inputLine.text = "\(entry)".appending(String(num))
+        inputLine.text = "\(line)".appending(String(num))
     }
     
     //=======================================================================================================================
@@ -661,6 +912,7 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
         HistoryLabel.lineBreakMode = .byWordWrapping
     }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
