@@ -1,7 +1,16 @@
 // ViewController.swift
 // phoneCalc
-// Created by Dominic Lopresti on 12/11/18.
-// Copyright © 2018 Dominic Lopresti. All rights reserved.
+// Created by Levy on 12/11/18.
+// Copyright © 2018 Levy. All rights reserved.
+
+
+
+//STUDENT PROJECT BY: guard Dominic Lopresti (oooooooo) && James Mc Ginty == smart else { return print("Failure") }
+
+
+
+
+
 /**
  The algorithm contained in this file, as well as the concept of the project is proprietary and using either for profit
  without express written permission constitutes a form of plagiarism and theft. This project and algorithm may be re
@@ -18,6 +27,8 @@
  *****/
 
 import UIKit
+import AVFoundation
+
 
 /**
  operationMode is an enum that describes the current mode of the calculator.  There are 7 modes.  5 for the integer
@@ -41,7 +52,7 @@ enum operationMode{
     case NON
 }
 
-//=======================================================================================================================
+
 
 //the ViewController class is the C in the MVC design pattern.  Its sending the data to our views on screen.*/
 class ViewController: UIViewController {
@@ -75,6 +86,8 @@ class ViewController: UIViewController {
     ///Stores the number that is currently on the inputLine
     var currentNum: Int = 0
     
+    //Musci Feature
+    
     
     ///tracks the current operation mode
     var currentMode: operationMode = operationMode.NON
@@ -82,9 +95,6 @@ class ViewController: UIViewController {
     var prevMode: operationMode = operationMode.NON
     ///String that represents the number on the input line
     var inputString = "0"
-    
-    //=======================================================================================================================
-    
     /**
      This is a more complicated version of the pre-checks performed in the Lynda video series.
      
@@ -111,12 +121,6 @@ class ViewController: UIViewController {
         guard !tappedEQL  else {
             inputLine.text = "0"
             return true }
-        /// if justtappedOp, then we need to set enteringNumber to true and just Tapped op to false
-        //        if justTappedOP {
-        //                justTappedOP = false
-        //                enteringNumber = true
-        //                inputLine.text = ""
-        //        }
         guard  !justClearedLine else {
             inputLine.text = "Choose Op"
             return false
@@ -136,22 +140,15 @@ class ViewController: UIViewController {
             enteringNumber = true
             inputLine.text = ""
         }
-        
-        
-//
-//        else {
-////            (inputLine.text?.count)! > numEntries)
-//            inputLine.text = "0"
-//        }
         return true
     }
-    
-    //=======================================================================================================================
+
     
     /**
      The button tap functions.  Each Numeric button must make sure they run passChecks successfully or else they should
      have no effect.  If passChecks is successful then the updateValue method is called with the appropriate numeric
      value*/
+    
     @IBAction func didTap1(){
         
         guard passChecks() else {
@@ -231,8 +228,6 @@ class ViewController: UIViewController {
         }
         updateValue(num: 0)
     }
-    
-    
     //Actions corresponding to tapping the aritmetic operations
     //All of these methods call tappedOperation and pass in their corresponding operationMode value
     ///Runs when the + button was tapped
@@ -260,9 +255,6 @@ class ViewController: UIViewController {
         tappedOperation(op: .MOD)
         
     }
-    
-    //=======================================================================================================================
-    
     /**
      clears out current (most recently typed) number and (most recently chosen) Mode
      
@@ -293,10 +285,9 @@ class ViewController: UIViewController {
             justTappedOP = false
             enteringNumber = false
             currentMode = .NON }
+        
+        playAudioFile4()
     }
-    
-    //=======================================================================================================================
-    
     /**
      Clears out the current number and mode, as well as saved Number and History and resets to app starting conditions
      
@@ -317,16 +308,13 @@ class ViewController: UIViewController {
         currentMode = operationMode.NON
         prevMode = operationMode.NON
         HistoryLabel.text = "This is History"
+        playAudioFile2()
     }
-    
     ///Pre Condition: None
     ///Post Condition: All numbers and booleans have been cleared and reset to app start up values
     @IBAction func didTapClearHistory(){
         clearHistory()
     }
-    
-    //=======================================================================================================================
-    
     /**
      - PreCondition:  Either some number has been entered into the input line or we are continuing some sort of chained
      arithmetic operation (1 + 2 + 3...).   If the line has been cleared, we need to reset that boolean to false.
@@ -354,57 +342,22 @@ class ViewController: UIViewController {
      
      Before exiting, set the booleans for justTappedOp to True and enteringNumber to False for any situations that have not already returned
      */
-    
     func tappedOperation(op: operationMode){
         guard inputLine.text != "OVERFLOW" else { return}
         enteringNumber = false
         justTappedOP = true
         if numEntries < 1{
-            //on first entry, the saved number is the current Number
             storeCurrNum()
-            
             savedNum = currentNum
-            
             updateHistory(op: op, valueGrabbed: currentNum)
             currentMode = op
-            
         } else if numEntries >= 1 {
-            
-            
             storeCurrNum()
-                
             inputLine.text = evaluate(pressedEq: false, prevMode: op)
-            updateHistory(op: currentMode, valueGrabbed: currentNum) //fix implementation
-
+            updateHistory(op: currentMode, valueGrabbed: currentNum)
             currentMode = op
-//            else {
-//                print ("else")
-//                inputLine.text = evaluate(pressedEq: false, prevMode: op)
-//                updateHistory(op: currentMode, valueGrabbed: savedNum) //fix implementation
-//
-//                // updateHistory(op: currentMode, valueGrabbed: currentNum) //fix implementation
-//                currentMode = op
-//            }
-            
-//            if currentMode == prevMode {
-//                storeCurrNum()
-//
-//
-//
-//                inputLine.text = evaluate(pressedEq: false, prevMode: op)
-//
-//                prevMode = op
-//            }
-            
-            //now change current mode to minus
         }
-        //after first ent
-        //store the current number on every tap no matter if first or millionth entry
-        //update current
     }
-    
-    //=======================================================================================================================
-    
     /**
      - PreCondition:  There is some entered Number on the inputLine.
      - PostCondition:  The most recently entered digit has been removed.
@@ -430,7 +383,6 @@ class ViewController: UIViewController {
         }
     }
     
-    //=======================================================================================================================
     
     /**
      Stores the current number on the inputLine, if it is indeed a number and increments the total number of entries
@@ -462,14 +414,12 @@ class ViewController: UIViewController {
      */
     func storeCurrNum() {
         guard inputLine.text != "OVERFLOW" || inputLine.text != "ERR DIV 0" || inputLine.text != "CHOOSE NUM" || inputLine.text != "" else { return }
-        guard let current = Int(inputLine.text!) else { print("storing current has a problem")
-            
+        guard let current = Int(inputLine.text!) else { print("unable to store current")
             return }
         currentNum = current
         numEntries+=1
     }
     
-    //=======================================================================================================================
     
     /**
      - PreCondition: The user tapped =
@@ -490,7 +440,7 @@ class ViewController: UIViewController {
      
      */
     @IBAction func tappedEvaluate(){
-        guard justTappedOP == true || enteringNumber || tappedEQL else { return print("ERROR EQL") }//tapped OP represents *&%+-
+        guard justTappedOP == true || enteringNumber || tappedEQL else { return  }//tapped OP represents *&%+-
         if tappedEQL == false && enteringNumber == false && currentMode == .NON && justTappedOP == false  {
             inputLine.text = String(savedNum)
         }
@@ -534,16 +484,11 @@ class ViewController: UIViewController {
         }
         
         HistoryLabel.text?.append("= \(savedNum) \n")
-        tappedEQL = true//represents equals
-        //updateHistory(op: prevMode, valueGrabbed: savedNum)
-        //set flags
-        print(currentMode)
-        print(prevMode)
-        print("Num: \(numEntries)")
+        tappedEQL = true
+        playAudioFile()
         
     }
     
-    //=======================================================================================================================
     
     /**
      - PreCondition: The user tapped an operation(+ * - ÷ % =) and the current number and mode and must be used to modify the saved number
@@ -603,130 +548,63 @@ class ViewController: UIViewController {
      Update the savedNum with currentMode
      if number of entries is greater than 1 update the history with the currentMode and current Number
      
-     inputLine is output
-     historylabel is savedgreetings
      */
     
-    //=======================================================================================================================
     
     func evaluate(pressedEq: Bool, prevMode: operationMode)-> String{
-        
-        //        guard currentNum / savedNum != 0 else{
-        //            currentMode = operationMode.ERR
-        //            //inputLine.text = "ERROR DIV ZERO"
-        //            return "ERROR DIV ZERO"
-        //        }
-        
-        
         
         if pressedEq == false {
             switch currentMode {
                 
-                //assuming addition
-            //breakthis code into a separate function later
             case  .ADD:
                 savedNum += currentNum
-                print("Saved: \(savedNum)")
-                print("Current: \(currentNum)\n")
                 
             case  .MUL:
                 savedNum *= currentNum
-                print("Saved: \(savedNum)")
-                print("Current: \(currentNum)\n")
                 
             case  .DIV:
                 guard (currentNum != 0 && savedNum != 0) else {
-                    return "ERROR YOU BROKE THE UNIVERSE"
+                    playAudioFile3()
+                    return "ERR Div 0"
                 }
                 savedNum /= currentNum
-                print("Saved: \(savedNum)")
-                print("Current: \(currentNum)\n")
                 
             case  .SUB:
                 savedNum -= currentNum
-                print("Saved: \(savedNum)")
-                print("Current: \(currentNum)\n")
                 
             case .MOD:
                 savedNum %= currentNum
-                print("Saved: \(savedNum)")
-                print("Current: \(currentNum)\n")
                 
             default: return String(savedNum)
                 }
         } else if pressedEq == true {
-            
-            print("hi there")
-            
+        
             switch prevMode {
-            //assuming addition
-        //breakthis code into a separate function later
+                
         case  .ADD:
             savedNum = savedNum + currentNum
-            print("Saved2: \(savedNum)")
-            print("Current2: \(currentNum)")
-            print("Input: \(inputLine.text!)")
             
         case  .MUL:
             savedNum = savedNum * currentNum
-            print("Saved: \(savedNum)")
-            print("Current: \(currentNum)")
-            print("Input: \(inputLine.text!)")
         
         case  .DIV:
             guard (currentNum != 0 && savedNum != 0) else {
+                playAudioFile3()
                 return "ERR Div 0"
             }
             savedNum = savedNum / currentNum
-            print("Saved: \(savedNum)")
-            print("Current: \(currentNum)")
-            print("Input: \(inputLine.text!)")
             
         case  .SUB:
             savedNum = savedNum - currentNum
-            print("Saved: \(savedNum)")
-            print("Current: \(currentNum)")
-            print("Input: \(inputLine.text!)")
             
         case .MOD:
             savedNum = savedNum % currentNum
-            print("Saved: \(savedNum)")
-            print("Current: \(currentNum)")
-            print("Input: \(inputLine.text!)")
             
         default: return String(savedNum)
             }
         }
-        
-        
-        //
-        //        switch prevMode {
-        //        case .ADD:
-        //
-        //            print("add")
-        //        case .SUB:
-        //            print("Subtract")
-        //        case operationMode.MUL:
-        //
-        //            //savedNum*=currentNum
-        //            print("multiply")
-        //        case operationMode.DIV:
-        //            print("div")
-        //        case operationMode.MOD:
-        //            print("mod")
-        //        default: inputLine.text? = "default"
-        //        }
-        
         return String(savedNum)
     }
-    
-    
-    
-    
-    
-    
-    
-    //=======================================================================================================================
     
     /**
      Updates the value on the inputLine based on what the user is entering via the numberpad.
@@ -743,8 +621,6 @@ class ViewController: UIViewController {
     func updateSaved(_ theMode: operationMode){
         inputLine.text = inputString
     }
-    
-    //=======================================================================================================================
     
     /**
      you write this algorithm.  Based on the passed-in operation and value update the feed.
@@ -763,10 +639,6 @@ class ViewController: UIViewController {
     
     func updateHistory(op: operationMode, valueGrabbed: Int){
         guard let test2 = inputLine.text else { return }
-        
-        
-        
-        
         
         if numEntries == 1{
             if justTappedOP == true {
@@ -809,53 +681,14 @@ class ViewController: UIViewController {
             if op == .MOD {
                 HistoryLabel.text?.append("% ")
             }
-            
-            
             HistoryLabel.text?.append("\(currentNum) \n")
-            
-            
         }
         if numEntries > 5 {
             if let index = (HistoryLabel.text?.index(of: "\n")) {
                 HistoryLabel.text?.removeSubrange((HistoryLabel.text!.startIndex...index))
             }
         }
-        
-        
-        
-        
-//        if currentMode == .NON {
-//            if numEntries == 1 {
-//                HistoryLabel.text? = (test2 + "\n")
-//            }
-//            else if numEntries > 1{
-//                if op == .ADD {
-//                    HistoryLabel.text?.append("+- ")
-//                }
-//                if op == .MUL {
-//                    HistoryLabel.text?.append("* ")
-//                }
-//                if op == .DIV {
-//                    HistoryLabel.text?.append("/ ")
-//                }
-//                if op == .SUB {
-//                    HistoryLabel.text?.append("- ")
-//                }
-//                if op == .MOD {
-//                    HistoryLabel.text?.append("% ")
-//                }
-//
-//                HistoryLabel.text?.append("\(savedNum) \n")
-//            }
-//            if numEntries > 5 {
-//                if let index = (HistoryLabel.text?.index(of: "\n")) {
-//                    HistoryLabel.text?.removeSubrange((HistoryLabel.text!.startIndex...index))
-//                }
-//            }
-        }
-    
-    
-    //=======================================================================================================================
+    }
     
     /**
      Returns the optional String that is currently stored on the inputLine. Use this whenever you need the most recent number on the line
@@ -863,12 +696,11 @@ class ViewController: UIViewController {
      - PreCondition: None
      - PostCondition: An optional String has been returned.
      */
+    
     func getText() -> String?{
         
         return inputLine.text
     }
-    
-    //=======================================================================================================================
     
     /**
      - PreCondition: None
@@ -884,7 +716,7 @@ class ViewController: UIViewController {
     func updateValue(num: Int) {
         var line: String
         guard let value = inputLine.text else {
-            print("there's no value in the input")
+            print("input value empty")
             inputLine.text = ""
             return
         }
@@ -905,7 +737,80 @@ class ViewController: UIViewController {
         inputLine.text = "\(line)".appending(String(num))
     }
     
-    //=======================================================================================================================
+    var objPlayer: AVAudioPlayer?
+    
+    func playAudioFile() {
+        guard let url = Bundle.main.url(forResource: "music", withExtension: "mp3") else { return }
+        
+        do {
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+            try AVAudioSession.sharedInstance().setActive(true)
+            
+            // For iOS versions < 11
+            objPlayer = try AVAudioPlayer(contentsOf: url, fileTypeHint: AVFileType.mp3.rawValue)
+            
+            guard let aPlayer = objPlayer else { return }
+            aPlayer.play()
+            
+        } catch let error {
+            print(error.localizedDescription)
+        }
+    }
+    
+    func playAudioFile2() {
+        guard let url = Bundle.main.url(forResource: "thanos", withExtension: "mp3") else { return }
+        
+        do {
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+            try AVAudioSession.sharedInstance().setActive(true)
+            
+            // For iOS versions < 11
+            objPlayer = try AVAudioPlayer(contentsOf: url, fileTypeHint: AVFileType.mp3.rawValue)
+            
+            guard let aPlayer = objPlayer else { return }
+            aPlayer.play()
+            
+        } catch let error {
+            print(error.localizedDescription)
+        }
+    }
+    
+    func playAudioFile3() {
+        guard let url = Bundle.main.url(forResource: "no", withExtension: "mp3") else { return }
+        
+        do {
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+            try AVAudioSession.sharedInstance().setActive(true)
+            
+            // For iOS versions < 11
+            objPlayer = try AVAudioPlayer(contentsOf: url, fileTypeHint: AVFileType.mp3.rawValue)
+            
+            guard let aPlayer = objPlayer else { return }
+            aPlayer.play()
+            
+        } catch let error {
+            print(error.localizedDescription)
+        }
+    }
+    
+    func playAudioFile4() {
+        guard let url = Bundle.main.url(forResource: "clear", withExtension: "mp3") else { return }
+        
+        do {
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+            try AVAudioSession.sharedInstance().setActive(true)
+            
+            // For iOS versions < 11
+            objPlayer = try AVAudioPlayer(contentsOf: url, fileTypeHint: AVFileType.mp3.rawValue)
+            
+            guard let aPlayer = objPlayer else { return }
+            aPlayer.play()
+            
+        } catch let error {
+            print(error.localizedDescription)
+        }
+    }
+    
     //////////THESE METHODS ARE NOT PART OF THE PROJECT
     override func viewDidLoad() {
         super.viewDidLoad()
