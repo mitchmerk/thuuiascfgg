@@ -809,7 +809,7 @@ class ViewController: UIViewController {
     
     func playO(){
         do {
-            let path = Bundle.main.path(forResource: "beep.wav", ofType:nil)!
+            let path = Bundle.main.path(forResource: "beep.mp3", ofType:nil)!
             let urly = URL(fileURLWithPath: path)
             let soundY = try AVAudioPlayer(contentsOf: urly)
             xMove = soundY
